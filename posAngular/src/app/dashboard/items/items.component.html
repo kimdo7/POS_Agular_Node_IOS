@@ -1,0 +1,61 @@
+<div class="row">
+    <mat-toolbar class="w-100">
+        <div class="col-8">Items</div>
+        <div class="col-2">
+            <a [routerLink]="['catergory/new']" mat-raised-button color="primary" class=" form-control"> <i class="fa fa-plus"
+                    aria-hidden="true"></i> Catergory</a>
+
+        </div>
+        <div class="col-2">
+            <a [routerLink]="['item/new']" mat-raised-button color="primary" class=" form-control"> <i class="fa fa-plus"
+                    aria-hidden="true"></i>
+                Items</a>
+        </div>
+
+    </mat-toolbar>
+</div>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div> <!-- add new catergory and item -->
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <div class="row">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <button mat-icon-button disabled></button>
+
+            <div class="col-4 font-weight-bold">
+                {{node.item}}
+            </div>
+            <div class="col-2">
+                <div *ngIf="items[node.item]['med'] != '' ">
+                    Medium: ${{items[node.item]['med']}}
+                </div>
+            </div>
+            <div class="col-2">
+                <div *ngIf="items[node.item]['lrg'] != '' ">
+                    Large: ${{items[node.item]['lrg']}}
+                </div>
+            </div>
+            <div class="col-1">
+                <button mat-mini-fab class="bg-warning" [routerLink]= "['item', 'update', items[node.item]['id']]">
+                    <mat-icon >edit</mat-icon>
+                </button>
+            </div>
+            <div class="col-1">
+                <button mat-mini-fab color="warn">
+                    <mat-icon >delete_forever</mat-icon>
+                </button>
+            </div>
+        </mat-tree-node>
+    </div>
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <button mat-icon-button [attr.aria-label]="'toggle ' + node.filename" matTreeNodeToggle>
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+            {{node.item}}
+        </button>
+        <mat-progress-bar *ngIf="node.isLoading" mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
+    </mat-tree-node>
+</mat-tree>

@@ -69,7 +69,7 @@ module.exports = function (app) {
 
 
     app.all("*", (req,res,next) => {
-      res.sendFile(path.resolve("../POS/dist/POS/index.html"))
+      res.sendFile(path.resolve("../posAngular/dist/posAngular/index.html"))
     });
     
 

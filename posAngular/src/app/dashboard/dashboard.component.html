@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav bg-dark" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+        <mat-toolbar class="text-white form-group bg-dark" >Dojo Restaurant</mat-toolbar>
+        
+
+        <mat-nav-list>
+            <a mat-list-item [routerLink] = '["home"]' class="text-white">Home</a>
+            <a mat-list-item [routerLink] = '["current"]' class="text-white">Current Orders</a>
+            <a mat-list-item [routerLink] = '["sells"]' class="text-white">Sells</a>
+            <a mat-list-item [routerLink] = '["items"]' class="text-white">Items</a>
+            <a mat-list-item [routerLink] = '["employees"]'class="text-white">Employees</a>
+            <a mat-list-item [routerLink] = '["users"]'class="text-white">Users</a>
+
+            <button class="btn btn-secondary form-control" (click)="onLogOut()">Log out</button>
+        </mat-nav-list>
+    </mat-sidenav> <!-- side bar  -->
+
+
+    <mat-sidenav-content class='bg-light'>
+        <mat-toolbar class="bg-white text-dark">
+            
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+
+            
+            <span>POS</span>
+            <span class="spacer"></span>
+        </mat-toolbar>
+
+        <router-outlet></router-outlet> 
+        <!-- Add Content Here -->
+
+
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

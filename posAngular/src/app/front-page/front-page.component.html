@@ -1,0 +1,146 @@
+<div class="form-group bg-dark">
+    <form (submit)="onLogIn()">
+        <div class="row  ">
+
+            <div class="col-4"></div>
+            <div class="col-2 mt-4 mb-4">
+                <input type="text" class="form-control" name="user.email" [(ngModel)]="user.email" placeholder="Email">
+                <div *ngIf="!validEmail(user.email)">
+                    <small class="text-danger">* Invalid Email</small>
+                </div>
+            </div>
+            <div class="col-2 mt-4 mb-4">
+                <input type="password" class="form-control" name="user.password" [(ngModel)]="user.password"
+                    placeholder="password">
+                <div *ngIf="!validPass(user.password)">
+                    <small class="text-danger">* Invalid password</small>
+                </div>
+            </div>
+            <div class="col-1 mt-4 mb-4">
+                <input type="submit" class="form-control btn btn-primary">
+            </div>
+            <div class="col-2 mt-4 mb-4">
+
+                <button class="btn btn-danger form-control"> <i class="fa fa-google" aria-hidden="true"></i> Log In
+                    with Google</button>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+<br>
+<div class="form-group ">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-5 bg-success">
+        </div>
+
+
+        <div class="col-5">
+            <mat-vertical-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>Fill out your name</ng-template>
+                        <div class="row form-group">
+                            <mat-form-field class="col">
+                                <input matInput placeholder="First name" formControlName="first_name" required>
+                                <mat-error *ngFor="let validation of validation_messages.first_name">
+                                    <mat-error class="error-message" *ngIf="firstFormGroup.get('first_name').hasError(validation.type) && (firstFormGroup.get('first_name').dirty || firstFormGroup.get('first_name').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field> <!-- First name -->
+
+                            <mat-form-field class="col">
+                                <input matInput placeholder="Last name " formControlName="last_name" required>
+                                <mat-error *ngFor="let validation of validation_messages.last_name">
+                                    <mat-error class="error-message" *ngIf="firstFormGroup.get('last_name').hasError(validation.type) && (firstFormGroup.get('last_name').dirty || firstFormGroup.get('last_name').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field><!-- last name -->
+                        </div>
+
+                        <div>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step><!-- First and last name -->
+
+
+                <mat-step [stepControl]="secondFormGroup">
+                    <form [formGroup]="secondFormGroup">
+                        <ng-template matStepLabel>Fill out your email adress</ng-template>
+                        <div class="row">
+                            <mat-form-field class="col">
+                                <input matInput placeholder="Email" formControlName="email" required>
+                                <mat-error *ngFor="let validation of validation_messages.email">
+                                    <mat-error class="error-message" *ngIf="secondFormGroup.get('email').hasError(validation.type) && (secondFormGroup.get('email').dirty || secondFormGroup.get('email').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step><!-- email -->
+
+                <mat-step [stepControl]="thirdFormGroup" [optional]="isOptional">
+                    <form [formGroup]="thirdFormGroup">
+                        <ng-template matStepLabel>Fill out your phone</ng-template>
+                        <div class="row">
+                            <mat-form-field class="col">
+                                <input matInput placeholder="Phone Number" formControlName="phone" required>
+                                <mat-error *ngFor="let validation of validation_messages.phone">
+                                    <mat-error class="error-message" *ngIf="thirdFormGroup.get('phone').hasError(validation.type) && (thirdFormGroup.get('phone').dirty || thirdFormGroup.get('phone').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step> <!-- phone -->
+
+                <mat-step [stepControl]="fourthFormGroup">
+                    <form [formGroup]="fourthFormGroup">
+                        <ng-template matStepLabel>Fill out your password</ng-template>
+                        <div class="row form-group">
+                            <mat-form-field class="col">
+                                <input type="password" matInput placeholder="Passowrd" formControlName="password"
+                                    required>
+                                <mat-error *ngFor="let validation of validation_messages.password">
+                                    <mat-error class="error-message" *ngIf="fourthFormGroup.get('password').hasError(validation.type) && (fourthFormGroup.get('password').dirty || fourthFormGroup.get('password').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="row form-group">
+                            <mat-form-field class="col">
+                                <input type="password" matInput placeholder="Confrim Passowrd" formControlName="confirmPassword"
+                                    [errorStateMatcher]="parentErrorStateMatcher" required>
+                                <mat-error *ngFor="let validation of validation_messages.confirmPassword">
+                                    <mat-error class="error-message" *ngIf="fourthFormGroup.get('confirmPassword').hasError(validation.type) && (fourthFormGroup.get('confirmPassword').dirty || fourthFormGroup.get('confirmPassword').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step> <!-- passowrd -->
+
+                <mat-step>
+                    <ng-template matStepLabel>Done</ng-template>
+                    You are now done.
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="onSubmit()">Create A New User</button>
+                    </div>
+                </mat-step>
+            </mat-vertical-stepper>
+        </div>
+    </div>
+</div>

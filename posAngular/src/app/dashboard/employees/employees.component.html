@@ -1,0 +1,95 @@
+<mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Admins
+            </mat-panel-title>
+            <mat-panel-description>
+                List of Managers
+                <mat-icon>supervised_user_circle</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header><!-- admin header -->
+
+        <div class="container">
+            <mat-list #shoes class="form-group">
+                <div class="row">
+                    <mat-list-item *ngFor="let admin of admins">
+                        <div class="col-3">
+                            {{admin.first_name}} {{admin.last_name}}
+                        </div>
+                        <div class="col-3">
+                            {{admin.email}}
+                        </div>
+
+                        <div class="col-2 ">
+                            <button *ngIf="current_id == admin.id" mat-raised-button color="primary" class="from-control"
+                                disabled>Remove Admin Access</button>
+                            <button *ngIf="current_id != admin.id" mat-raised-button color="primary" class="from-control"
+                                (click)="onRemoveAdmin(admin.id)">Remove Admin Access</button>
+                        </div>
+                        <div class="col-2 ">
+                            <button *ngIf="current_id == admin.id" mat-raised-button color="warn" class="form-control"
+                                (click)="onDelete(admin)" disabled>Delete User</button>
+                            <button *ngIf="current_id != admin.id" mat-raised-button color="warn" class="form-control"
+                                (click)="onDelete(admin)">Delete User</button>
+                        </div>
+                    </mat-list-item>
+                </div>
+            </mat-list>
+
+        </div><!-- </admin body> -->
+
+
+        <mat-action-row>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row><!-- next button -->
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Employees
+            </mat-panel-title>
+            <mat-panel-description>
+                List of Employees
+                <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header><!-- employee header -->
+
+
+        <div class="container">
+            <mat-list #shoes class="form-group">
+                <div class="row">
+                    <mat-list-item *ngFor="let employee of employees">
+                        <div class="col-3">
+                            {{employee.first_name}} {{employee.last_name}}
+                        </div>
+                        <div class="col-3">
+                            {{employee.email}}
+                        </div>
+
+                        <div class="col-2 ">
+                            <button mat-raised-button color="primary" class="from-control" (click)="onGivenAdmin(employee.id)">Given
+                                Admin Access</button>
+                        </div>
+                        <div class="col-3 ">
+                            <button mat-raised-button color="primary" class="form-control" (click)="onRemoveEmployee(employee.id)">Remove
+                                Employee Access</button>
+                        </div>
+                        <div class="col-2 ">
+                            <button mat-raised-button color="warn" class="form-control" (click)="onDelete(employee)">Delete
+                                User</button>
+                        </div>
+                    </mat-list-item>
+                </div>
+            </mat-list>
+
+        </div><!-- </employee body> -->
+
+        <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        </mat-action-row><!-- previous button -->
+
+    </mat-expansion-panel>
+
+</mat-accordion>
