@@ -1,0 +1,15 @@
+//
+//  static.swift
+//  pos_staffs_iPad
+//
+//  Created by Kim Do on 12/17/18.
+//  Copyright © 2018 Kim Do. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+let HOME = 1
+let CATEGORY = 2
+let ITEMS = 3
+let SIZE = 4

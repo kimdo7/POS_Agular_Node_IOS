@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:/Users/Kim_MBP15/Desktop/Dojo/Final_Project/POS_Angular_Node_IOS/pos_staffs_iPad/pos_staffs_iPad/Item.swift">
+   </FileRef>
+   <FileRef
+      location = "group:pos_staffs_iPad.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

@@ -1,0 +1,6 @@
+framework module Pods_pos_staffs_iPadUITests {
+  umbrella header "Pods-pos_staffs_iPadUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
