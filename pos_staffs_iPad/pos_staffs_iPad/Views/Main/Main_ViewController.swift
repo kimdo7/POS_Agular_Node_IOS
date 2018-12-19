@@ -25,6 +25,7 @@ class Main_ViewController: UIViewController {
    
    @IBOutlet weak var totalLabel: UILabel!
    
+   @IBOutlet weak var checkOutBtn: UIButton!
    @IBOutlet weak var navbar: UINavigationBar!
    @IBOutlet weak var tableView: UITableView!
    
@@ -34,25 +35,35 @@ class Main_ViewController: UIViewController {
       super.viewDidLoad()
       
       
-//      socket = manager.defaultSocket
+      socket = manager.defaultSocket
 //
 //      socket.on(clientEvent: .connect) {data, ack in
 //         print("socket connected")
 //      }
 //
 //
-//      socket.on("greeting") { (data, ack) in
-//         print(data)
-//      }
-//
-//      socket.connect()
+      socket.on("status") { (data, ack) in
+         let dict = data[0] as! [String: AnyObject]
+         let message : String = dict["msg"]! as! String
+         print(message)
+         
+         if message == "reload"{
+            self.getAllTables()
+         }
+//         let myJSON = [
+//            "msg": "bob"
+//         ]
+//         self.socket.emit("thankyou",   ["msg":"hello"])
+      }
+
+      socket.connect()
       
       getAllItems()
-      getAllTables()
+      
       
       setUp()
       loadHomePage()
-//      reloadOrdering()
+      self.getAllTables()
       
    }
    
@@ -61,6 +72,7 @@ class Main_ViewController: UIViewController {
       self.collectionView.dataSource = self
       self.collectionView.delegate   = self
       self.tableView.dataSource = self
+      self.tableView.delegate = self
    }
    @IBAction func goBackNavBtnClicked(_ sender: Any) {
       if (self.stage == ITEMS || self.stage == SIZE || self.stage == CATEGORY){
@@ -84,6 +96,7 @@ class Main_ViewController: UIViewController {
          do {
             // Try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
             
+
             if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                if let results = jsonResult["data"] as? NSArray {
                   for item in results {
@@ -120,17 +133,27 @@ class Main_ViewController: UIViewController {
    }
    
    func getAllTables(){
-      TablesMode.getAll(completionHandler: { // passing what becomes "completionHandler" in the 'getAllPeople' function definition in StarWarsModel.swift
+      TablesModel.getAll(completionHandler: { // passing what becomes "completionHandler" in the 'getAllPeople' function definition in StarWarsModel.swift
          data, response, error in
          do {
             // Try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
-            
+            self.tables.removeAll()
             if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                if let results = jsonResult["data"] as? NSArray {
                   for item in results {
                      let itemDict = item as! NSDictionary
-                     let newTable = Table(id: itemDict["id"] as! String, name: itemDict["name"] as! String, status: itemDict["status"] as! Int)
+                     var order_id = itemDict["current_order_id"] as? String
+                     if order_id == nil{
+                        order_id = ""
+                     }
+                     
+                     let newTable = Table(id: itemDict["id"] as! String, name: itemDict["name"] as! String, status: itemDict["status"] as! Int, order_id: order_id!)
                      self.tables.append(newTable)
+                     if ((self.currentTable) != nil){
+                        if (self.currentTable!.id == newTable.id){
+                           self.currentTable = newTable
+                        }
+                     }
                      
                   }
                }
@@ -150,6 +173,9 @@ class Main_ViewController: UIViewController {
       })
    }
 
-
+   @IBAction func checkOutBtnClicked(_ sender: Any) {
+      stage = CHECKOUT
+   }
+   
 }
 

@@ -1,5 +1,5 @@
 //
-//  static.swift
+//  Main_TW_Protocol.swift
 //  pos_staffs_iPad
 //
 //  Created by Kim Do on 12/17/18.
@@ -7,10 +7,7 @@
 //
 
 import Foundation
-import UIKit
 
-let HOME = 1
-let CATEGORY = 2
-let ITEMS = 3
-let SIZE = 4
-let CHECKOUT = 5
+protocol AddMinusProtol {
+   func change(value: Int, indexPath: IndexPath)
+}

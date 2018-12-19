@@ -12,6 +12,9 @@ class Main_TableViewCell: UITableViewCell {
 
    @IBOutlet weak var nameLabel: UILabel!
    @IBOutlet weak var countLabel: UILabel!
+   var indexPath : IndexPath!
+   var delegate : AddMinusProtol!
+   
    override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,9 +27,13 @@ class Main_TableViewCell: UITableViewCell {
     }
    
    @IBAction func minusBtnClicked(_ sender: UIButton) {
+      delegate.change(value: -1, indexPath: indexPath)
    }
    
    @IBAction func addBtnClicked(_ sender: UIButton) {
+      delegate.change(value: 1, indexPath: indexPath)
    }
+   
+   
    
 }
