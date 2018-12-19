@@ -14,3 +14,4 @@ let CATEGORY = 2
 let ITEMS = 3
 let SIZE = 4
 let CHECKOUT = 5
+let NUMBERS = ["1","2","3","4","5","6","7","8","9","00","0","X"]

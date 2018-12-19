@@ -34,6 +34,35 @@ extension Main_ViewController: UICollectionViewDelegate {
          self.tableView.reloadData()
          self.collectionView.reloadData()
          self.currentCategory = ""
+      }else if (self.stage == CHECKOUT){
+         var paid : String = String(totalArr[0].split(separator: ":")[1])
+         if (NUMBERS[indexPath.row] == "X"){
+            paid.removeLast()
+            let paidDouble : Double = Double(paid)!
+            paid  = String (format: "%.02f", paidDouble / 10 )
+         }else if paid == " 0.00"{
+            if (NUMBERS[indexPath.row] != "00" && NUMBERS[indexPath.row] != "0"){
+               paid = "0.0" + NUMBERS[indexPath.row]
+            }
+         }else{
+            
+            paid += NUMBERS[indexPath.row]
+            let paidDouble : Double = Double(paid)!
+            if (NUMBERS[indexPath.row] == "00"){
+               paid = String (format: "%.02f", paidDouble * 100)
+            }else{
+               paid = String (format: "%.02f", paidDouble * 10)
+            }
+         }
+         
+         let paidDouble : Double = Double(paid)!
+         let total : Double = Double(totalArr[1].split(separator: ":")[1])!
+         let changeDouble : Double = paidDouble - total
+         
+         
+         totalArr[0] = "Paid:" + paid
+         totalArr[2] = String (format: "Change:%.02f", changeDouble)
+         totalTW.reloadData()
       }
    }
 }

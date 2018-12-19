@@ -22,8 +22,13 @@ class Main_ViewController: UIViewController {
    var categories : [String] = []
    var stage : Int = HOME
    var currentItemId : String?
+   var totalArr = ["Paid:0.00", "Total:0", "Change:0"]
    
-   @IBOutlet weak var totalLabel: UILabel!
+   
+   
+   @IBOutlet weak var totalTW: UITableView!
+   
+//   @IBOutlet weak var totalLabel: UILabel!
    
    @IBOutlet weak var checkOutBtn: UIButton!
    @IBOutlet weak var navbar: UINavigationBar!
@@ -73,6 +78,7 @@ class Main_ViewController: UIViewController {
       self.collectionView.delegate   = self
       self.tableView.dataSource = self
       self.tableView.delegate = self
+      self.totalTW.dataSource = self
    }
    @IBAction func goBackNavBtnClicked(_ sender: Any) {
       if (self.stage == ITEMS || self.stage == SIZE || self.stage == CATEGORY){
@@ -82,12 +88,13 @@ class Main_ViewController: UIViewController {
          if (stage == HOME){
             reloadHomePage()
          }
+      }else if (self.stage == CHECKOUT){
+         self.stage = CATEGORY
+         reloadOrdering()
+         totalTW.reloadData()
+         collectionView.reloadData()
       }
       
-//      let HOME = 1
-//      let CATEGORY = 2
-//      let ITEMS = 3
-//      let SIZE = 4
    }
    
    func getAllItems(){
@@ -175,6 +182,9 @@ class Main_ViewController: UIViewController {
 
    @IBAction func checkOutBtnClicked(_ sender: Any) {
       stage = CHECKOUT
+      collectionView.reloadData()
+      totalTW.reloadData()
+      reloadCheckOut()
    }
    
 }

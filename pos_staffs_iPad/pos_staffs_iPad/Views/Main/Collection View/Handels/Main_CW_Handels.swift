@@ -27,13 +27,13 @@ extension Main_ViewController {
    func loadCatergory(indexPath: IndexPath) -> UICollectionViewCell {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "main_cw_cell", for: indexPath) as! Main_CollectionViewCell
       cell.label.text = self.categories[indexPath.row]
-      
+      cell.backgroundColor = UIColor.green
       return cell
    }
    
    func loadCategoryDetail(indexPath: IndexPath) -> UICollectionViewCell{
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "main_cw_cell", for: indexPath) as! Main_CollectionViewCell
-      
+      cell.backgroundColor = UIColor.green
       cell.label.text = self.items[currentCategory!]![indexPath.row].name
       return cell
    }
@@ -50,7 +50,7 @@ extension Main_ViewController {
       }else{
          cell.label.text =  "Large: " + item.lrg
       }
-      
+      cell.backgroundColor = UIColor.green
       return cell
    }
    
@@ -66,9 +66,19 @@ extension Main_ViewController {
       }else if self.stage == SIZE{
 //         return self.items[currentCategory!][ind]
          return self.itemList[currentItemId!]!.getSizes()
+      }else if self.stage == CHECKOUT{
+         return NUMBERS.count
       }
       
       return 0
+   }
+   
+   func loadCheckOut(indexPath: IndexPath) -> UICollectionViewCell {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "main_cw_cell", for: indexPath) as! Main_CollectionViewCell
+      cell.backgroundColor = UIColor.gray
+      cell.label.text = String(NUMBERS[indexPath.row])
+      
+      return cell
    }
    
 }

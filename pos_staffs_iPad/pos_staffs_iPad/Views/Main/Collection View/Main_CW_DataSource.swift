@@ -26,6 +26,8 @@ extension Main_ViewController: UICollectionViewDataSource {
          cell = loadCategoryDetail(indexPath: indexPath)
       }else if stage == SIZE{
          cell = loadItemSizes(indexPath: indexPath)
+      }else if stage == CHECKOUT{
+         cell = loadCheckOut(indexPath: indexPath)
       }
 
       

@@ -25,39 +25,61 @@ extension Main_ViewController: UITableViewDataSource, AddMinusProtol{
       }
    
       
-      
       if ((self.currentTable?.itemList.isEmpty)!){
          self.currentTable?.status = 0
-      }else{
-         
       }
-      
       
       tableView.reloadData()
    }
    
+   
+   
+   
+   
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      if ((self.currentTable) != nil){
-         getTotal()
-         
-         return (self.currentTable?.items.count)!
+      if (tableView == self.tableView){
+         if ((self.currentTable) != nil){
+            getTotal()
+            
+            return (self.currentTable?.items.count)!
+         }
+      }else{
+         if (stage == CHECKOUT){
+            return 3
+         }
+         return 1
       }
       return 0
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "main_tw_cell", for: indexPath) as! Main_TableViewCell
+      if (tableView == self.tableView){
+         let cell = tableView.dequeueReusableCell(withIdentifier: "main_tw_cell", for: indexPath) as! Main_TableViewCell
+         
+         let key : String = (self.currentTable?.itemList[indexPath.row])!
+         let order = self.currentTable?.items[key]
+         let count : Int = (order?.quanity)!
+         
+         cell.nameLabel.text = (order?.size)! + ": " + (order?.name)!
+         cell.countLabel.text = String(count)
+         cell.indexPath = indexPath
+         cell.delegate = self
+         return cell
+      }else{
+         let cell = tableView.dequeueReusableCell(withIdentifier: "total_tw_cell", for: indexPath)
+         if stage == CHECKOUT{
+            cell.textLabel?.text = String(self.totalArr[indexPath.row].split(separator: ":")[0])
+            cell.detailTextLabel!.text = "$" + String(self.totalArr[indexPath.row].split(separator: ":")[1])
+         }else{
+            cell.textLabel?.text = String(self.totalArr[1].split(separator: ":")[0])
+            cell.detailTextLabel!.text = "$" + String(self.totalArr[1].split(separator: ":")[1])
+         }
+         
+         return cell
+      }
       
-      let key : String = (self.currentTable?.itemList[indexPath.row])!
-      let order = self.currentTable?.items[key]
-      let count : Int = (order?.quanity)!
+//      return UITableViewCell()
       
-      cell.nameLabel.text = (order?.size)! + ": " + (order?.name)!
-      cell.countLabel.text = String(count)
-      cell.indexPath = indexPath
-      cell.delegate = self
-      
-      return cell
    }
    
    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

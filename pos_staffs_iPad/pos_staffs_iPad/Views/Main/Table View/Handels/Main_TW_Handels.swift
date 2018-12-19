@@ -19,6 +19,8 @@ extension Main_ViewController{
          total += value.price * Double(value.quanity)
       }
       
-      self.totalLabel.text = "Total : $" + String(total)
+      self.totalArr[1] = "Total :" + String(format: "%.02f", total)
+      self.totalArr[2] = "Change:" + String(format: "%.02f", -total)
+      self.totalTW.reloadData()
    }
 }
