@@ -21,19 +21,27 @@ extension Main_ViewController: UICollectionViewDelegate {
          self.currentCategory = self.categories[indexPath.row]
          self.collectionView.reloadData()
       }else if (self.stage == ITEMS){
-         self.stage += 1
-         let item = self.items[currentCategory!]![indexPath.row]
-         self.currentItemId  = item.id
-
+         if indexPath.row == 0{
+            self.stage -= 1
+         }else{
+            self.stage += 1
+            let item = self.items[currentCategory!]![indexPath.row - 1]
+            self.currentItemId  = item.id
+         }
          self.collectionView.reloadData()
 
       }else if (self.stage == SIZE){
-         self.stage = CATEGORY
-         let item : Item = self.itemList[currentItemId!]!
-         self.currentTable?.add(item: item, index: indexPath.row)
-         self.tableView.reloadData()
+         if indexPath.row == 0{
+            self.stage -= 1
+         }else{
+            self.stage = CATEGORY
+            let item : Item = self.itemList[currentItemId!]!
+            self.currentTable?.add(item: item, index: indexPath.row - 1)
+            self.tableView.reloadData()
+            self.currentCategory = ""
+         }
+         
          self.collectionView.reloadData()
-         self.currentCategory = ""
       }else if (self.stage == CHECKOUT){
          var paid : String = String(totalArr[0].split(separator: ":")[1])
          if (NUMBERS[indexPath.row] == "X"){

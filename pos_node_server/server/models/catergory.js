@@ -11,6 +11,7 @@ module.exports = {
             }
         })
     },
+    
 
     add: function (sql, req, res) {
         let find_sql = `SELECT * FROM pos.categories WHERE name = '${req.body.name}' ALLOW FILTERING`

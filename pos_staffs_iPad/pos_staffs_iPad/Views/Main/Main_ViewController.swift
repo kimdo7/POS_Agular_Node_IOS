@@ -23,12 +23,17 @@ class Main_ViewController: UIViewController {
    var stage : Int = HOME
    var currentItemId : String?
    var totalArr = ["Paid:0.00", "Total:0", "Change:0"]
-   
+   var histories: [History] = []
+   var ordered_items : [String : OrderItem] = [:]
+   var ordered_item_keys : [String ] = []
+   var ordered_table : String!
+   var order_tw : UITableView!
    
    
    @IBOutlet weak var totalTW: UITableView!
    
 //   @IBOutlet weak var totalLabel: UILabel!
+   @IBOutlet weak var homeNavBtn: UIBarButtonItem!
    
    @IBOutlet weak var checkOutBtn: UIButton!
    @IBOutlet weak var navbar: UINavigationBar!
@@ -67,124 +72,94 @@ class Main_ViewController: UIViewController {
       
       
       setUp()
+      createOrderTW()
       loadHomePage()
       self.getAllTables()
       
    }
    
    
-   func setUp(){
-      self.collectionView.dataSource = self
-      self.collectionView.delegate   = self
-      self.tableView.dataSource = self
-      self.tableView.delegate = self
-      self.totalTW.dataSource = self
-   }
-   @IBAction func goBackNavBtnClicked(_ sender: Any) {
-      if (self.stage == ITEMS || self.stage == SIZE || self.stage == CATEGORY){
-         self.stage -= 1
-         self.collectionView.reloadData()
-         
-         if (stage == HOME){
-            reloadHomePage()
-         }
-      }else if (self.stage == CHECKOUT){
+   
+   
+   @IBAction func goBackNavBtnClicked(_ sender: UIBarButtonItem) {
+      
+       if (self.stage == CHECKOUT){
          self.stage = CATEGORY
          reloadOrdering()
          totalTW.reloadData()
          collectionView.reloadData()
+       }else{
+
+            self.stage = HOME
+            self.collectionView.reloadData()
+            
+            reloadHomePage()
+         
       }
       
    }
    
-   func getAllItems(){
-      ItemsModel.getAllItems(completionHandler: { // passing what becomes "completionHandler" in the 'getAllPeople' function definition in StarWarsModel.swift
+   
+   @IBAction func historyBtnClicked(_ sender: Any) {
+      loadHistory()
+      HistoryModel.getAll(completionHandler: { // passing what becomes "completionHandler" in the 'getAllPeople' function definition in StarWarsModel.swift
          data, response, error in
          do {
             // Try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
             
-
+            
             if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                if let results = jsonResult["data"] as? NSArray {
+                  self.histories.removeAll()
                   for item in results {
                      let itemDict = item as! NSDictionary
-                     if let category = itemDict["catergory"] as? String{
-                        let id = itemDict["id"] as? String
-                        let name = itemDict["name"] as? String
-                        let lrg =  itemDict["lrg"] as? String
-                        let med =  itemDict["med"] as? String
-                        let newItem = Item(id: id!, name: name! , category: category, lrg: lrg!, med: med!)
-                        
-                        if self.items[category] != nil {
-                           self.items[category]?.append(newItem)
-                        }else{
-                           self.items[category] = [newItem]
-                           self.categories.append(category)
-                        }
-                        
-                        self.itemList[id!] = newItem
-                     }
+                     let id = itemDict["id"] as? String
+                     let table_id =  itemDict["tableid"] as? String
+                     let total =  itemDict["total"] as? Double
+                     
+                     let history = History(id: id!, table_id: table_id!, total: total!)
+                     self.histories.append(history)
                   }
-                  
-                  
-                  self.categories.sort(by: { (left, right) -> Bool in
-                     left < right
-                  })
+ 
+                  DispatchQueue.main.async {
+                      self.ordered_items  = [:]
+                      self.ordered_item_keys = []
+                      self.ordered_table  = ""
+                      self.totalArr = ["Paid:0.00", "Total:0", "Change:0"]
+                      self.tableView.reloadData()
+                      self.order_tw.reloadData()
+                  }
                }
             }
-   
+            
          } catch {
             print("Something went wrong")
          }
       })
    }
    
-   func getAllTables(){
-      TablesModel.getAll(completionHandler: { // passing what becomes "completionHandler" in the 'getAllPeople' function definition in StarWarsModel.swift
-         data, response, error in
-         do {
-            // Try converting the JSON object to "Foundation Types" (NSDictionary, NSArray, NSString, etc.)
-            self.tables.removeAll()
-            if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-               if let results = jsonResult["data"] as? NSArray {
-                  for item in results {
-                     let itemDict = item as! NSDictionary
-                     var order_id = itemDict["current_order_id"] as? String
-                     if order_id == nil{
-                        order_id = ""
-                     }
-                     
-                     let newTable = Table(id: itemDict["id"] as! String, name: itemDict["name"] as! String, status: itemDict["status"] as! Int, order_id: order_id!)
-                     self.tables.append(newTable)
-                     if ((self.currentTable) != nil){
-                        if (self.currentTable!.id == newTable.id){
-                           self.currentTable = newTable
-                        }
-                     }
-                     
-                  }
-               }
-            }
+   @IBAction func checkOutBtnClicked(_ sender: Any) {
+      if stage != CHECKOUT{
+         let total :Double = Double(totalArr[1].split(separator: ":")[1])!
+         if (total > 0){
+            stage = CHECKOUT
+            collectionView.reloadData()
+            totalTW.reloadData()
+            self.reloadCheckOut()
+         }
+      }else{
+         let change :Double = Double(totalArr[2].split(separator: ":")[1])!
+         let total :Double = Double(totalArr[1].split(separator: ":")[1])!
+         if (change > 0){
             
-            self.tables.sort(by: { (left, right) -> Bool in
-               left.name < right.name
-            })
-            
-            DispatchQueue.main.async {
+            TablesModel.cleanTable(table: currentTable!, total: total) { (data, response, error) in
+               self.stage = HOME
+               self.reloadHomePage()
+
                self.collectionView.reloadData()
             }
-            
-         } catch {
-            print("Something went wrong")
          }
-      })
-   }
-
-   @IBAction func checkOutBtnClicked(_ sender: Any) {
-      stage = CHECKOUT
-      collectionView.reloadData()
-      totalTW.reloadData()
-      reloadCheckOut()
+      }
    }
    
 }

@@ -77,8 +77,6 @@ module.exports = function (app, io) {
         var object = Object.keys(req.body)[0]
         object = JSON.parse(object);
         var table_id = object["table_id"]
-        // console.log("Table id", table_id)
-        // console.log("Table", object)
 
         let updateTable_SQL = `UPDATE pos.tables SET status = 1 WHERE id = ${table_id};`
         let createOrder = `INSERT INTO pos.orders (id, tableid, ischeckedout, total ) VALUES ( now(), ${table_id}, false, 0);`
@@ -147,7 +145,7 @@ module.exports = function (app, io) {
             } else {
                 if (result["rowLength"] == 1) {
                     let orderItemId = result["rows"][0].id
-                    if (object["order"]["quanity"] > 0) {
+                    if (object["order"]["quanity"] > 0) {s
                         let updateSQL = `UPDATE pos.orderitems SET quanity = ${object["order"]["quanity"]} WHERE id = ${orderItemId};`
                         client.execute(updateSQL, [], function (err, result) {
                             if (err) {
@@ -177,11 +175,16 @@ module.exports = function (app, io) {
                                 res.json({ error: err })
                             } else {
                                 if (result["rowLength"] == 0) {
-                                    let clearTableSql = `UPDATE pos.tables SET status = 0 WHERE id = ${object["table_id"]};`
+                                    let clearTableSql = `UPDATE pos.tables SET status = 0, current_order_id = null WHERE id = ${object["table_id"]};`
+                                    let deleteOrderSQL = ` DELETE FROM pos.orders WHERE id = ${object["order_id"]};`
                                     client.execute(clearTableSql, [], function (err, result) {
                                         if (err) {
                                             console.log(err)
-                                            // res.json({ error: err })
+                                        }
+                                    })
+                                    client.execute(deleteOrderSQL, [], function (err, result) {
+                                        if (err) {
+                                            console.log(err)
                                         }
                                     })
                                     io.emit('status', { msg: 'reload' }); //3
@@ -213,6 +216,15 @@ module.exports = function (app, io) {
             }
         })
         // res.json({status:"error"})
+    })
+
+    app.post("/table/clean", function (req, res) {
+        tables.clean(req, res, io)
+    })
+
+    //*******************GET HISTOERY******************************* */
+    app.get("/history", function(req, res){
+        orders.history(req, res)
     })
 
     app.get("/order/:id", function (req, res) {

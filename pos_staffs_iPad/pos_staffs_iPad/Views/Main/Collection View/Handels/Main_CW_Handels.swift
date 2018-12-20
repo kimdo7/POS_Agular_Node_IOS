@@ -33,15 +33,25 @@ extension Main_ViewController {
    
    func loadCategoryDetail(indexPath: IndexPath) -> UICollectionViewCell{
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "main_cw_cell", for: indexPath) as! Main_CollectionViewCell
-      cell.backgroundColor = UIColor.green
-      cell.label.text = self.items[currentCategory!]![indexPath.row].name
+      
+      if (indexPath.row == 0){
+         cell.label.text = "Back"
+         cell.backgroundColor = UIColor.blue
+      }else{
+         cell.backgroundColor = UIColor.green
+         cell.label.text = self.items[currentCategory!]![indexPath.row-1].name
+      }
       return cell
    }
    
    func loadItemSizes(indexPath: IndexPath) -> UICollectionViewCell{
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "main_cw_cell", for: indexPath) as! Main_CollectionViewCell
       let item : Item = self.itemList[currentItemId!]!
-      if (indexPath.row == 0){
+      
+      if indexPath.row == 0{
+         cell.label.text = "Back"
+         cell.backgroundColor = UIColor.blue
+      }else if (indexPath.row == 1){
          if (item.med != ""){
             cell.label.text = "Medium: " + item.med
          }else{
@@ -62,10 +72,10 @@ extension Main_ViewController {
       } else if self.stage == CATEGORY{
          return self.categories.count
       }else if self.stage == ITEMS{
-         return self.items[currentCategory!]!.count
+         return self.items[currentCategory!]!.count + 1
       }else if self.stage == SIZE{
 //         return self.items[currentCategory!][ind]
-         return self.itemList[currentItemId!]!.getSizes()
+         return self.itemList[currentItemId!]!.getSizes() + 1
       }else if self.stage == CHECKOUT{
          return NUMBERS.count
       }

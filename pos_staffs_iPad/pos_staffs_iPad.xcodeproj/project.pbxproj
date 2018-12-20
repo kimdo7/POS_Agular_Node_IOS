@@ -29,12 +29,15 @@
 		777210D921C890340090805F /* Main_TW_datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210D821C890340090805F /* Main_TW_datasource.swift */; };
 		777210DC21C8906D0090805F /* Main_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210DB21C8906D0090805F /* Main_TableViewCell.swift */; };
 		777210DF21C895A70090805F /* static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210DE21C895A70090805F /* static.swift */; };
-		777210E121C8A1460090805F /* Main_TW_Handels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210E021C8A1460090805F /* Main_TW_Handels.swift */; };
+		777210E121C8A1460090805F /* Main_Handels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210E021C8A1460090805F /* Main_Handels.swift */; };
 		777210E321C8AD390090805F /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210E221C8AD390090805F /* OrderItem.swift */; };
 		777210E521C8BF5A0090805F /* Main_TW_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210E421C8BF5A0090805F /* Main_TW_Protocol.swift */; };
 		777210E721C9771A0090805F /* Main_TW_delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210E621C9771A0090805F /* Main_TW_delegate.swift */; };
 		777210E921C9BDDA0090805F /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210E821C9BDDA0090805F /* OrderModel.swift */; };
 		777210EB21CA077F0090805F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210EA21CA077F0090805F /* Item.swift */; };
+		777210ED21CAE9070090805F /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210EC21CAE9070090805F /* HistoryModel.swift */; };
+		777210EF21CB00B20090805F /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210EE21CB00B20090805F /* History.swift */; };
+		777210F121CB2A150090805F /* Main_TW_Handels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777210F021CB2A150090805F /* Main_TW_Handels.swift */; };
 		AA4B998FE397153F7000A66B /* Pods_pos_staffs_iPadTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EA0A9789A84E57BB2C4D4D /* Pods_pos_staffs_iPadTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,12 +87,15 @@
 		777210D821C890340090805F /* Main_TW_datasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_TW_datasource.swift; sourceTree = "<group>"; };
 		777210DB21C8906D0090805F /* Main_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_TableViewCell.swift; sourceTree = "<group>"; };
 		777210DE21C895A70090805F /* static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = static.swift; sourceTree = "<group>"; };
-		777210E021C8A1460090805F /* Main_TW_Handels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_TW_Handels.swift; sourceTree = "<group>"; };
+		777210E021C8A1460090805F /* Main_Handels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_Handels.swift; sourceTree = "<group>"; };
 		777210E221C8AD390090805F /* OrderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
 		777210E421C8BF5A0090805F /* Main_TW_Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_TW_Protocol.swift; sourceTree = "<group>"; };
 		777210E621C9771A0090805F /* Main_TW_delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_TW_delegate.swift; sourceTree = "<group>"; };
 		777210E821C9BDDA0090805F /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		777210EA21CA077F0090805F /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		777210EC21CAE9070090805F /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
+		777210EE21CB00B20090805F /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		777210F021CB2A150090805F /* Main_TW_Handels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_TW_Handels.swift; sourceTree = "<group>"; };
 		83D37A957AA16D2E1B790DCB /* Pods-pos_staffs_iPad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pos_staffs_iPad.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pos_staffs_iPad/Pods-pos_staffs_iPad.debug.xcconfig"; sourceTree = "<group>"; };
 		879974D9F8F9582D0880BD6A /* Pods_pos_staffs_iPad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pos_staffs_iPad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF99F60E563EBC8C5F0E0EE1 /* Pods-pos_staffs_iPadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pos_staffs_iPadTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pos_staffs_iPadTests/Pods-pos_staffs_iPadTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -190,6 +196,7 @@
 				777210BD21C8511E0090805F /* ItemsModel.swift */,
 				777210E821C9BDDA0090805F /* OrderModel.swift */,
 				777210C321C86DBD0090805F /* TablesModel.swift */,
+				777210EC21CAE9070090805F /* HistoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,6 +207,7 @@
 				777210EA21CA077F0090805F /* Item.swift */,
 				777210C521C86DF00090805F /* Table.swift */,
 				777210E221C8AD390090805F /* OrderItem.swift */,
+				777210EE21CB00B20090805F /* History.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -215,6 +223,7 @@
 		777210C821C872930090805F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				777210E021C8A1460090805F /* Main_Handels.swift */,
 				777210D721C890060090805F /* Table View */,
 				777210C921C872A20090805F /* Collection View */,
 				7772108C21C82B710090805F /* Main_ViewController.swift */,
@@ -257,8 +266,8 @@
 		777210DA21C8903F0090805F /* Handels */ = {
 			isa = PBXGroup;
 			children = (
-				777210E021C8A1460090805F /* Main_TW_Handels.swift */,
 				777210E421C8BF5A0090805F /* Main_TW_Protocol.swift */,
+				777210F021CB2A150090805F /* Main_TW_Handels.swift */,
 			);
 			path = Handels;
 			sourceTree = "<group>";
@@ -523,7 +532,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				777210C621C86DF00090805F /* Table.swift in Sources */,
-				777210E121C8A1460090805F /* Main_TW_Handels.swift in Sources */,
+				777210E121C8A1460090805F /* Main_Handels.swift in Sources */,
 				7772109321C82B710090805F /* pos_staffs_iPad.xcdatamodeld in Sources */,
 				777210C421C86DBD0090805F /* TablesModel.swift in Sources */,
 				777210D421C87C8C0090805F /* Main_CW_Handels.swift in Sources */,
@@ -535,9 +544,12 @@
 				777210E921C9BDDA0090805F /* OrderModel.swift in Sources */,
 				7772108D21C82B710090805F /* Main_ViewController.swift in Sources */,
 				777210D121C87A960090805F /* Main_CW_Delegate.swift in Sources */,
+				777210F121CB2A150090805F /* Main_TW_Handels.swift in Sources */,
+				777210EF21CB00B20090805F /* History.swift in Sources */,
 				777210E321C8AD390090805F /* OrderItem.swift in Sources */,
 				777210CD21C875BD0090805F /* Main_CW_Cell.swift in Sources */,
 				777210D621C88DFC0090805F /* main_layout.swift in Sources */,
+				777210ED21CAE9070090805F /* HistoryModel.swift in Sources */,
 				777210BE21C8511E0090805F /* ItemsModel.swift in Sources */,
 				7772108B21C82B710090805F /* AppDelegate.swift in Sources */,
 				777210E521C8BF5A0090805F /* Main_TW_Protocol.swift in Sources */,
